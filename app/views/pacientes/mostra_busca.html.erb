@@ -1,0 +1,272 @@
+<% if !@pac.nil? %>
+    <div style="border-bottom: 1px solid #dddddd;" id="setor1" class="infger">
+
+      <table class="table">
+        <thead>
+        <th colspan=9 style="text-align: center"><h3>Informações Gerais</h3></th>
+        <tr>
+          <th>Id amostra</th>
+          <th>Nome</th>
+          <th>Datanasc</th>
+          <th>Prontuario</th>
+          <th>Genero</th>
+          <th>Tempo total</th>
+          <th>Tempo ITRN</th>
+          <th>Monoterapia</th>
+          <th>Duplaterapia</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= @pac.id_amostra %></td>
+          <td><%= @pac.nome %></td>
+          <td><%= @pac.dataNasc.to_date.strftime('%d/%m/%Y') %></td>
+          <td><%= @pac.prontuario.to_i %></td>
+          <td><%= @pac.genero %></td>
+          <% if !@tempototal.nil? %>
+              <td><%= @tempototal %> meses</td>
+          <% else %>
+              <td></td>
+          <% end %>
+          <% if !@tempoitrn.nil? %>
+              <td><%= @tempoitrn %> meses</td>
+          <% else %>
+              <td></td>
+          <% end %>
+          <% if !@tempomono.nil? %>
+              <td><%= @tempomono %> meses</td>
+          <% else %>
+              <td></td>
+          <% end %>
+          <% if !@tempodupla.nil? %>
+              <td><%= @tempodupla %> meses</td>
+          <% else %>
+              <td></td>
+          <% end %>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <table style="margin-top: 50px" class="table esquemas pull-right">
+
+      <thead>
+      <th colspan=3 style="text-align:center"><h2>Esquemas</h2></th>
+      </thead>
+      <% if @esq.nil? %>
+          Este paciente não possui esquemas cadastrados
+      <% else %>
+
+          <thead>
+          <tr>
+            <th>Data Inicial</th>
+            <th>Data Final</th>
+            <th>Medicamento</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <% @esq.each do |e| %>
+              <tr>
+                <% i=0 %>
+                <% drogas = "" %>
+                <% med = Medicamento.all(:joins => 'inner join esquemas_medicamentos on medicamentos.id = medicamento_id inner join esquemas on esquemas.id = esquema_id',
+                                         :conditions => 'esquema_id = '+e.id.to_s)  %>
+                <% drogas += med[i].abreviacao %>
+                <% i=i+1 %>
+                <% while i< med.count %>
+                    <% drogas += ' + ' + med[i].abreviacao %>
+                    <% i=i+1 %>
+                <% end %>
+
+                <% if e.atual.eql?('S') %>
+                    <td><%= e.DataIni.to_date.strftime('%d/%m/%Y') if !(e.DataIni.gsub(/[^0-9]/, '').blank?) %> </td>
+                    <td>Atual</td>
+                    <td><%= drogas %></td>
+                <% else %>
+                    <td><%= e.DataIni.to_date.strftime('%d/%m/%Y') if !(e.DataIni.gsub(/[^0-9]/, '').blank?) %></td>
+                    <td><%= e.DataFim.to_date.strftime('%d/%m/%Y') if !(e.DataFim.gsub(/[^0-9]/, '').blank?) %></td>
+                    <td><%= drogas %></td>
+                <% end %>
+              </tr>
+          <% end %>
+      <% end %>
+
+
+    </table>
+
+    <table style="margin-top: 50px" class="table exames">
+      <thead>
+      <th colspan=2 style="text-align:center"><h2>Exames</h2></th>
+      </thead>
+      <tr>
+        <td align="center">
+          <table align="center">
+            <thead>
+            <th colspan=2 style="text-align:center"><h4>CD4</h4></th>
+            </thead>
+            <thead>
+            <tr>
+              <th>Data</th>
+              <th>Valor</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @cd4.nil? %>
+                Este paciente não possui exames do tipo CD4 cadastrados
+            <% else %>
+                <% @cd4.each do |cd| %>
+                    <tr>
+                      <td><%= cd.data.to_date.strftime('%d/%m/%Y') if !(cd.data.gsub(/[^0-9]/, '').blank?)%></td>
+                      <td><%= cd.valor %></td>
+                    </tr>
+                <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        </td>
+
+        <td>
+          <table align="center">
+            <thead>
+            <th colspan=2 style="text-align:center"><h4>Carga Viral</h4></th>
+            </thead>
+            <thead>
+            <tr>
+              <th>Data</th>
+              <th>Valor</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @cv.nil? %>
+                Este paciente não possui exames do tipo Carga viral cadastrados
+            <% else %>
+                <% @cv.each do |cv| %>
+                    <tr>
+                      <td><%= cv.data.to_date.strftime('%d/%m/%Y') if !(cv.data.gsub(/[^0-9]/, '').blank?) || !(cv.data.blank?) %></td>
+                      <td><%= cv.valor %></td>
+                    </tr>
+                <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        </td>
+    </table>
+
+
+    <table style="border-top: 1px solid #dddddd; margin-top: 50px" class="table genotipagem">
+
+      <thead>
+      <th colspan=9 style="text-align:center"><h2>Genotipagens</h2></th>
+      </thead>
+
+      <thead>
+      <tr>
+        <th><h4>Gen nº</h4></th>
+        <th><h4>Local Procedencia</h4></th>
+        <th><h4>Data Coleta</h4></th>
+        <th><h4>Data Recepção</h4></th>
+        <th><h4>Mutações Principais</h4></th>
+        <th><h4>Polimorfismo</h4></th>
+        <th><h4>ITRN</h4></th>
+        <th><h4>ITRNN</h4></th>
+        <th><h4>Polimorfismos na TR</h4></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% if @gen.nil? %>
+          Este paciente não possui mutações cadastradas
+      <% else %>
+          <% extra = 0%>
+          <% @gen.each do |g| %>
+              <tr>
+                <td><%= extra+1 %></td>
+
+                <% i=0 %>
+                <% junto = "" %>
+                <% mp = "" %>
+                <% poli = "" %>
+                <% itrn = "" %>
+                <% itrnn = "" %>
+                <% politr = "" %>
+
+                <% mut = Mutacao.all(:joins => 'inner join genotipagems_mutacaos on mutacaos.id = mutacao_id inner join genotipagems on genotipagems.id = genotipagem_id',
+                                     :conditions => 'genotipagem_id = '+g.id.to_s)  %>
+                <%# junto += mut[i].sigla %>
+                <%# i=i+1 %>
+                <% while i< mut.count %>
+                    <% if mut[i].regiao == "Mutacoes principais" %>
+                        <% mp += mut[i].sigla + ' ' %>
+                    <% end %>
+                    <% if mut[i].regiao == "Polimorfismos" %>
+                        <% poli += mut[i].sigla + ' ' %>
+                    <% end %>
+                    <% if mut[i].regiao == "ITRN" %>
+                        <% itrn += mut[i].sigla + ' ' %>
+                    <% end %>
+                    <% if mut[i].regiao == "ITRNN" %>
+                        <% itrnn += mut[i].sigla + ' ' %>
+                    <% end %>
+                    <% if mut[i].regiao == "Polimorfismo na TR" %>
+                        <% politr += mut[i].sigla + ' ' %>
+                    <% end %>
+
+                    <% junto += mut[i].sigla + ' ' %>
+                    <% i=i+1 %>
+                <% end %>
+
+                <% if g.localProcedencia.nil? %>
+                    <td><%= 'Não possui' %></td>
+                <% else %>
+                    <td><%= g.localProcedencia.to_s %></td>
+                <% end %>
+                <% if g.dataColeta.nil? %>
+                    <td><%= 'Não possui' %></td>
+                <% else %>
+                    <td><%= g.dataColeta.to_date.strftime('%d/%m/%Y') %></td>
+                <% end %>
+                <% if g.dataRecep.nil? %>
+                    <td><%= 'Não possui' %></td>
+                <% else %>
+                    <td><%= g.dataRecep.to_date.strftime('%d/%m/%Y') %></td>
+                <% end %>
+                <% if !@princip.nil? %>
+                    <td><%= mp %><strong>(<%= @princip[extra] %>)</strong></td>
+                <% else %>
+                    <td></td>
+                <% end %>
+
+                <% if !@poli.nil? %>
+                    <td><%= poli %><strong>(<%= @poli[extra] %>)</strong></td>
+                <% else %>
+                    <td></td>
+                <% end %>
+                <% if !@itrn.nil? %>
+                    <td><%= itrn %><strong>(<%= @itrn[extra] %>)</strong></td>
+                <% else %>
+                    <td></td>
+                <% end %>
+                <% if !@itrnn.nil? %>
+                    <td><%= itrnn %><strong>(<%= @itrnn[extra] %>)</strong></td>
+                <% else %>
+                    <td></td>
+                <% end %>
+                <% if !@poliTR.nil? %>
+                    <td><%= politr %><strong>(<%= @poliTR[extra] %>)</strong></td>
+                <% else %>
+                    <td></td>
+                <% end %>
+              </tr>
+              <% extra += 1 %>
+          <% end %>
+
+          </tbody>
+      <% end %>
+      </table>
+<% else %>
+    <h1> Não foi encontrado o paciente. </h1>
+    <h2><%= link_to 'Voltar', pacientes_path %></h2>
+<% end %>
+

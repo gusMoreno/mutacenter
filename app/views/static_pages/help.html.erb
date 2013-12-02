@@ -1,0 +1,119 @@
+<% provide(:title, 'Busca Personalizada') %>
+<div class="hero-unit">
+  <h2>Busca Personalizada</h2>
+</div>
+
+<%=  form_tag do %>
+    <div class="span5">
+    <%= label_tag "Idade Entre" %>
+    <%= number_field_tag 'idadeMinima' %>
+    e
+    <%= number_field_tag 'idadeMaxima' %><br/>
+
+    <%= label_tag "Mutações" %>
+    <%= select_tag "mutacao[]", options_for_select(@listaMutacao) , :multiple => true, :size => 10 %>
+    </div>
+
+    <div style="margin-bottom: 50px" class="span6" >
+    <%= label_tag "Sexo" %>
+    <div class="span 3 pull-right" style="margin-right: 200px;">
+      <%= submit_tag 'Pesquisar' %>
+    </div>
+    <%= select_tag "sexo", "<option></option><option>Masculino</option><option>Feminino</option>".html_safe %>
+
+    <%= label_tag "Drogas" %>
+    <%= select_tag "drogas[]", options_for_select(Medicamento.order('abreviacao asc').all.collect {|med| [med.abreviacao]}) , :multiple => true, :size => 10 %>
+
+
+    </div>
+<% end %>
+
+<% #TODO %>
+<% if !@pac.nil? && !@pac.empty? %>
+
+    <table class="table span5">
+      <thead>
+      <th colspan=4><h3 align="center">Médias (em meses)</h3></th>
+      <tr>
+        <th>Tempo Total</th>
+        <th>Tempo ITRN</th>
+        <th>Mono terapia</th>
+        <th>Dupla terapia</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= @mediatotal.to_s %> </td>
+        <td><%= @mediaitrn.to_s %> </td>
+        <td><%= @mediamono.to_s %> </td>
+        <td><%= @mediadupla.to_s %> </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <table style="margin-bottom: 70px;" class="table span6">
+      <thead>
+      <th colspan=5><h3 align="center">Médias de genotipagems</h3></th>
+      <tr>
+        <th>Mutações Principais</th>
+        <th>Polimorfismos</th>
+        <th>ITRN</th>
+        <th>ITRNN</th>
+        <th>Polimorfismos na TR</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= @mediamutprincip.to_s %></td>
+        <td><%= @mediamutpoli.to_s %></td>
+        <td><%= @mediamutitrn.to_s %></td>
+        <td><%= @mediamutitrnn.to_s %> </td>
+        <td><%= @mediamutpoliTR.to_s %> </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <% i=0 %>
+    <table style="margin-bottom: 50px;" class="table">
+      <thead>
+      <th colspan=13><h3 align="center">Informações Gerais</h3></th>
+      <tr>
+        <th>ID amostra</th>
+        <th>Data Nascimento</th>
+        <th>Genero</th>
+        <th>Tempo total(em meses)</th>
+        <th>Tempo ITRN</th>
+        <th>MonoTerapia</th>
+        <th>DuplaTerapia</th>
+        <th>Mutações principais</th>
+        <th>Polimorfismos</th>
+        <th>ITRNs</th>
+        <th>ITRNNs</th>
+        <th>Polimorfismos na TR</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% while i<@pac.size %>
+          <tr>
+            <td><%= @pac[i].id_amostra.to_s %></td>
+            <td><%= @pac[i].dataNasc.to_date.strftime('%d/%m/%Y') if !(@pac[i].dataNasc.gsub(/[^0-9]/, '').blank?)%></td>
+            <td><%= @pac[i].genero if !@pac[i].genero.nil? %></td>
+            <td><%= @total[i].to_s %></td>
+            <td><%= @itrn[i].to_s %></td>
+            <td><%= @mono[i].to_s %></td>
+            <td><%= @dupla[i].to_s %></td>
+            <td><%= @mutprincip[i].to_s %></td>
+            <td><%= @mutpoli[i].to_s %></td>
+            <td><%= @mutitrn[i].to_s %></td>
+            <td><%= @mutitrnn[i].to_s %></td>
+            <td><%= @mutpoliTR[i].to_s %></td>
+          </tr>
+          <% i=i+1 %>
+      <% end %>
+      </tbody>
+    </table>
+
+
+
+<% end %>
+

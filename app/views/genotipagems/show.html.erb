@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Localprocedencia:</b>
+  <%= @genotipagem.localProcedencia %>
+</p>
+
+<p>
+  <b>Datacoleta:</b>
+  <%= @genotipagem.dataColeta %>
+</p>
+
+<p>
+  <b>Datarecep:</b>
+  <%= @genotipagem.dataRecep %>
+</p>
+
+<p>
+  <b>Paciente:</b>
+  <%= @genotipagem.paciente_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_genotipagem_path(@genotipagem) %> |
+<%= link_to 'Back', genotipagems_path %>

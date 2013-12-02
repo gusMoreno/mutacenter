@@ -1,0 +1,33 @@
+<%= form_for(@genotipagem) do |f| %>
+  <% if @genotipagem.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@genotipagem.errors.count, "error") %> prohibited this genotipagem from being saved:</h2>
+
+      <ul>
+      <% @genotipagem.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :localProcedencia %><br />
+    <%= f.text_field :localProcedencia %>
+  </div>
+  <div class="field">
+    <%= f.label :dataColeta %><br />
+    <%= f.date_select :dataColeta %>
+  </div>
+  <div class="field">
+    <%= f.label :dataRecep %><br />
+    <%= f.date_select :dataRecep %>
+  </div>
+  <div class="field">
+    <%= f.label :paciente_id %><br />
+    <%= f.number_field :paciente_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

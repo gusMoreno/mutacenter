@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Regiao:</b>
+  <%= @mutacao.regiao %>
+</p>
+
+<p>
+  <b>Sigla:</b>
+  <%= @mutacao.sigla %>
+</p>
+
+
+<%= link_to 'Editar', edit_mutacao_path(@mutacao) %> |
+<%= link_to 'Voltar', mutacaos_path %>

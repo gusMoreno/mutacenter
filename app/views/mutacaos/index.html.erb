@@ -1,0 +1,32 @@
+<% provide(:title, "Mutações") %>
+<div class="hero-unit">
+  <h2>Mutações</h2>
+</div>
+
+</br>
+<%= link_to 'Adicionar mutação', new_mutacao_path %>
+</br>
+</br>
+
+<table class="table esquemas">
+  <tr>
+    <th>Regiao</th>
+    <th>Sigla</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @mutacaos.each do |mutacao| %>
+  <tr>
+    <td><%= mutacao.regiao %></td>
+    <td><%= mutacao.sigla %></td>
+    <td><%= link_to 'Editar', edit_mutacao_path(mutacao) %></td>
+    <td><%= link_to 'Deletar', mutacao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= will_paginate @mutacaos %>

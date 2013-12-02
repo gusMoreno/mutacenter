@@ -1,0 +1,29 @@
+<% provide(:title, 'Importar Arquivo') %>
+<div class="hero-unit">
+  <h2>Gerenciamento de Arquivo</h2>
+</div>
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="page-header">
+        <h3>Importar Arquivo</h3>
+      </div>
+      <%= form_tag import_path, multipart: true do %>
+          <%= file_field_tag :file %>
+          <%= submit_tag 'Import' %>
+      <% end %>
+    </div>
+    <div class="span6">
+      <div class="page-header">
+        <h3>Exportar Arquivo</h3>
+      </div>
+      <h4><%= link_to 'Exportação completa', '/export.xls' %></h4>
+      <h4><%= link_to 'Exportação MDR', '/exportMDR.xls' %></h4>
+      <h4><%= link_to 'Exportação ITRN', '/exportITRN.xls' %></h4>
+      <h4><%= link_to 'Exportação ITRNN', '/exportITRNN.xls' %></h4>
+    </div>
+  </div>
+</div>
+
+

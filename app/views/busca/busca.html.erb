@@ -1,0 +1,24 @@
+<% provide(:title, 'Busca') %>
+<h1>Busca</h1>
+
+<% if !params[:drogas].nil? %>
+    <%= params[:drogas][0] %>
+<% end %>
+
+<%=  form_tag do %>
+    <%= label_tag "Idade Entre" %>
+    <%= number_field_tag 'idadeMaxima'    %>
+    e
+    <%= number_field_tag 'idadeMinima'  %><br/>
+
+    <%= label_tag "Sexo" %>
+    <%= select_tag "sexo", "<option>Masculo</option><option>Femino</option>".html_safe %>
+
+    <%= label_tag "Dorga" %>
+    <%= select_tag "drogas[]", options_for_select(Medicamento.all.collect {|med| [med.abreviacao]}) , :multiple => true, :size => 10 %>
+
+    <%= label_tag "Mutações" %>
+    <%= select_tag "mutacao[]", options_for_select(Mutacao.order('sigla asc').all.collect {|mut| [mut.sigla]}) , :multiple => true, :size => 10 %>
+
+    <%= submit_tag 'Submit' %>
+<% end %>

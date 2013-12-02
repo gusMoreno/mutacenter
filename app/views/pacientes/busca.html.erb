@@ -1,0 +1,9 @@
+<div id="busca">
+  <b><p>Digite o nome do paciente:</p></b>
+    <%= form_tag do %>
+      <%= select_tag "Tipo", "<option>Nome</option><option>Codigo</option><option>Idade</option>".html_safe %>
+      <%= text_field_tag "search" %><br>
+      <%= submit_tag "Buscar" %>   <br>
+
+    <% end %>
+</div>

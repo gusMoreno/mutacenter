@@ -1,0 +1,43 @@
+<% provide(:title, "Pacientes") %>
+
+<div class="hero-unit">
+  <h2>Pacientes</h2>
+</div>
+
+<div id="busca">
+  <b><p>Digite o nome do paciente:</p></b>
+  <%= form_tag({:controller => "pacientes", :action => "busca"}, {:method => "get"}) do %>
+      <%= select_tag "Tipo", "<option>Nome</option><option>Codigo</option>".html_safe %>
+      <%= text_field_tag "search" %><br>
+      <%= submit_tag "Buscar" %> <br>
+
+  <% end %>
+</div>
+
+<table class="table">
+  <tr>
+    <th>Id amostra</th>
+    <th>Nome</th>
+    <th>Datanasc</th>
+    <th>Prontuario</th>
+    <th>Genero</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pacientes.each do |paciente| %>
+  <tr>
+    <td><%= paciente.id_amostra %></td>
+    <td><%= paciente.nome %></td>
+    <td><%= paciente.dataNasc %></td>
+    <td><%= paciente.prontuario %></td>
+    <td><%= paciente.genero %></td>
+    <td><%= link_to 'Mostrar mais', paciente %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= will_paginate @pacientes %>

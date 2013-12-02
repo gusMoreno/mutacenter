@@ -1,0 +1,29 @@
+<h1>Listing esquemas</h1>
+
+<table>
+  <tr>
+    <th>Dataini</th>
+    <th>Datafim</th>
+    <th>Paciente</th>
+    <th>Atual</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @esquemas.each do |esquema| %>
+  <tr>
+    <td><%= esquema.DataIni %></td>
+    <td><%= esquema.DataFim %></td>
+    <td><%= esquema.paciente_id %></td>
+    <td><%= esquema.atual %></td>
+    <td><%= link_to 'Show', esquema %></td>
+    <td><%= link_to 'Edit', edit_esquema_path(esquema) %></td>
+    <td><%= link_to 'Destroy', esquema, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Esquema', new_esquema_path %>

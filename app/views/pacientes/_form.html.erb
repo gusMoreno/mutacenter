@@ -1,0 +1,37 @@
+<%= form_for(@paciente) do |f| %>
+  <% if @paciente.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@paciente.errors.count, "error") %> prohibited this paciente from being saved:</h2>
+
+      <ul>
+      <% @paciente.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :id_amostra %><br />
+    <%= f.number_field :id_amostra %>
+  </div>
+  <div class="field">
+    <%= f.label :nome %><br />
+    <%= f.text_field :nome %>
+  </div>
+  <div class="field">
+    <%= f.label :dataNasc %><br />
+    <%= f.text_field :dataNasc %>
+  </div>
+  <div class="field">
+    <%= f.label :prontuario %><br />
+    <%= f.text_field :prontuario %>
+  </div>
+  <div class="field">
+    <%= f.label :genero %><br />
+    <%= f.text_field :genero %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

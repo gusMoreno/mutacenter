@@ -1,0 +1,33 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <%= image_tag("Logo3.png" , :size => "50x75", :class => "logotest") %>
+      <%= link_to "mutacenter", root_path, id: "logo" %>
+        <% if signed_in? %>
+          <ul class="nav" style="margin-left: 70px;">
+            <li><%= link_to "Pacientes" , pacientes_path %></li>
+            <li><%= link_to "Gerenciamento de Arquivo" , "/import" %></li>
+            <li><%= link_to "Medicamentos", "/medicamentos" %></li>
+            <li><%= link_to "Mutações", "/mutacaos" %></li>
+            <li><%= link_to "Busca Personalizada", "/busca_personalizada" %></li>
+          </ul>
+        <% else %>
+          <ul class="nav">
+            <li><%#= link_to "Conheça mais", "#" %></li>
+          </ul>
+        <% end %>
+      <nav>
+        <ul class="nav pull-right">
+
+          <% if signed_in? %>
+            <li><%= link_to "Sair", signout_path, method: "delete" %></li>
+
+          <% else %>
+            <li><%= link_to "Cadastrar", signup_path %></li>
+            <li><%= link_to "Entrar", signin_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>

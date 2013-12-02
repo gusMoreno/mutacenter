@@ -1,0 +1,26 @@
+<% provide(:title, 'Cadastre-se') %>
+<div class="page-header">
+  <h1>Cadastre-se</h1>
+</div>
+
+<div class="row">
+  <div class="span6 offset5">
+    <%= form_for(@user) do |f| %>
+	  <%= render 'shared/error_messages' %>
+
+      <%= f.label :name, "Nome" %>
+      <%= f.text_field :name %>
+
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+
+      <%= f.label :password, "Senha" %>
+      <%= f.password_field :password %>
+
+      <%= f.label :password_confirmation, "Confirme sua senha" %>
+      <%= f.password_field :password_confirmation %>
+      </br>
+      <%= f.submit "Cadastrar", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

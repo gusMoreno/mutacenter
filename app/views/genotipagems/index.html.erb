@@ -1,0 +1,29 @@
+<h1>Listing genotipagems</h1>
+
+<table>
+  <tr>
+    <th>Localprocedencia</th>
+    <th>Datacoleta</th>
+    <th>Datarecep</th>
+    <th>Paciente</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @genotipagems.each do |genotipagem| %>
+  <tr>
+    <td><%= genotipagem.localProcedencia %></td>
+    <td><%= genotipagem.dataColeta %></td>
+    <td><%= genotipagem.dataRecep %></td>
+    <td><%= genotipagem.paciente_id %></td>
+    <td><%= link_to 'Show', genotipagem %></td>
+    <td><%= link_to 'Edit', edit_genotipagem_path(genotipagem) %></td>
+    <td><%= link_to 'Destroy', genotipagem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Genotipagem', new_genotipagem_path %>

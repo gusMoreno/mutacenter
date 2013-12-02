@@ -1,0 +1,37 @@
+<% provide(:title, "Medicamentos") %>
+<div class="hero-unit">
+  <h2>Medicamentos</h2>
+</div>
+
+</br>
+<%= link_to 'Adicionar medicamento', new_medicamento_path %>
+</br>
+</br>
+
+
+<table class="table">
+  <tr>
+    <th>Nome</th>
+    <th>Abreviacao</th>
+    <th>Classe</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @medicamentos.each do |medicamento| %>
+  <tr>
+    <td><%= medicamento.nome %></td>
+    <td><%= medicamento.abreviacao %></td>
+    <td><%= medicamento.classe %></td>
+    <td><%= link_to 'Editar', edit_medicamento_path(medicamento) %></td>
+    <td><%= link_to 'Deletar', medicamento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+
+
+<%= will_paginate @medicamentos %>

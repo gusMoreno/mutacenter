@@ -1,0 +1,33 @@
+<%= form_for(@esquema) do |f| %>
+  <% if @esquema.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@esquema.errors.count, "error") %> prohibited this esquema from being saved:</h2>
+
+      <ul>
+      <% @esquema.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :DataIni %><br />
+    <%= f.date_select :DataIni %>
+  </div>
+  <div class="field">
+    <%= f.label :DataFim %><br />
+    <%= f.date_select :DataFim %>
+  </div>
+  <div class="field">
+    <%= f.label :paciente_id %><br />
+    <%= f.number_field :paciente_id %>
+  </div>
+  <div class="field">
+    <%= f.label :atual %><br />
+    <%= f.text_field :atual %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Dataini:</b>
+  <%= @esquema.DataIni %>
+</p>
+
+<p>
+  <b>Datafim:</b>
+  <%= @esquema.DataFim %>
+</p>
+
+<p>
+  <b>Paciente:</b>
+  <%= @esquema.paciente_id %>
+</p>
+
+<p>
+  <b>Atual:</b>
+  <%= @esquema.atual %>
+</p>
+
+
+<%= link_to 'Edit', edit_esquema_path(@esquema) %> |
+<%= link_to 'Back', esquemas_path %>

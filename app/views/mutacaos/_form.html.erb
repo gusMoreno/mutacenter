@@ -1,0 +1,28 @@
+<%= form_for(@mutacao) do |f| %>
+  <% if @mutacao.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mutacao.errors.count, "error") %> proibiu essa mutação de ser salva:</h2>
+
+      <ul>
+      <% @mutacao.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <br />
+    <%= f.label :regiao %>
+    <%= f.text_field :regiao %>
+  </div>
+  <div class="field">
+    <br />
+    <%= f.label :sigla %>
+    <%= f.text_field :sigla %>
+  </div>
+  <br />
+  <div class="actions">
+    <%= f.submit(:value => "Cadastrar") %>
+  </div>
+<% end %>
